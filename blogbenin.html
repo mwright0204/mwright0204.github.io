@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Matthew Wright's Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Portfolio</strong> Matthew Wright</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>The Benin Bronze Experience</h1>
+
+									</header>
+
+									<p>
+									The Benin Bronze Experience is a VR exploration into what it was like to be a bronze caster in the ancient Kingdom of Benin being developed by 33 Strong. In this project, I have worked mainly as a technical artist using my skill and knowledge in Unreal Engine 5, creating complicated game elements such as a moving liquid shader as the bronze is melted and poured, the animation for the tongs as well as VFX for the firepit.									</p>
+									<p>
+									Check out The Benin Bronze Experience: <a href ="https://33strong.itch.io/benin-bronze-experience">Click Me!</a>
+									</p>
+									<p>
+									Check out 33 Strong: <a href ="https://uk.linkedin.com/company/33-strong">Click Me!</a>
+									</p>
+									<p>
+										More Words
+									</p>
+									<hr class="major" />
+
+									<h2>The Crucible</h2>
+									<h4>Shaders and Effects</h4>
+									<p>
+										More Words
+
+										More Words
+										<br><br>
+									</p>
+									<h4>Programming and Math</h4>
+									<p>
+										More Words
+									</p>
+									<hr class="major" />
+
+									<h2>The Tongs</h2>
+									<p>
+
+									The tongs in the Benin Bronze Experience could perhaps be the first working tongs created in VR and are done through a combination of procedural (inverse kinematic) animations and bespoke programming.
+									</p>
+									<h4>Control Rig</h4>
+									<p>
+									<img class="image right" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHM0cG14N2JlNHl3OG5mcGF6YXc0MGRvb3VoY3V4NGlpYmF4N2lnNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TnIq8CedmtEZjeWnLF/giphy.gif"></img>
+										Procedural animation can be done in many different ways, but the requirements for this specific use case are unique. Because of the VR aspect of the game, the player's hands can rotate and move through space, and so we had to adjust for this. 
+
+									</p>
+									<p>
+
+										Ultimately, traditional baked animations would not suffice; using aim constraints to animate each tong limb while keeping its fixed centre at a calculated point is the solution to the large amount of animation. But this will leave the limbs able to rotate independently, so it is important to lock the tongs' rotation on other irrelevant axes. To do this, you only allow rotation around the up vector of the tongs' root bone.
+
+									</p>
+									<p>
+										Because of a discrepancy between the animation and player interaction there is still one issue. The control that commands the aim of the animation can move around freely, not fixed onto the tongs, which can cause glitches. So an extra control is added, a fixed control that will lock onto each handle spot, the freely moving control still exists to animate the main bones for the animation, but these fixed controls can act as reference points of the animation to reset to or for other utility required.
+
+									</p>
+									<h4>VR Player Programming</h4>
+									<p>
+In terms of the player programming for VR tongs, the first question is, how do you program a two-handed object? And how can the hands act independently but be connected by a hinge?
+										</p>
+										<p>
+These were the questions we were asking ourselves when approaching this problem, but the solution I released was all too obvious. The solution was to treat both tong handles as independent objects in the grab code, so the player can hold both separately. And once both are held, we can calculate the position of the hinge of the tongs can be set according to both handle positions.
+										</p>
+										<p>
+This approach worked in tandem with the procedural animations to create the start of our animated tongs. By this point, we had tongs you can grab and move through space with the animations working, but the tong limbs would rotate into each other if pushed too far, and invert if the other direction. To fix this, we needed some kind of clamp, but with our system working dynamically, we had no fixed metric to work from. What we needed was a way to calculate the exact angle the tongs were at.
+										</p>
+										<p>
+To approximate an angle from the data available and to work in different scenarios was not easy, but the solution we ended up with was a complicated piece of maths using the distance between the tong handles. As the distance linearly increased with the angle of the tongs, we can use this to clamp our animation.
+										</p>
+										<p>
+To make our tongs function with the crucible in the game, we used some overlap collision spheres at the end of the tongs, along with measuring how closed they are to attach the crucible to them.
+										</p>
+									<hr class="major" />
+
+									<h2>Heading Goes Here</h2>
+									<p>
+										More Words
+										</p>
+									<p>
+										More Words
+										</p>
+									<p>
+										More Words
+									</p>
+									<hr class="major" />
+
+									<h2>Heading Goes Here</h2>
+									<p>
+										More Words
+									</p>
+									<p>
+										More Words
+										</p>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search 
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>-->
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="about.html">About</a></li>
+										<!--<li><a href="elements.html">Elements</a></li> -->
+										<li>
+											<span class="opener">See Games</span>
+											<ul>
+												<li><a href="#">The Benin Bronze Experience</a></li>
+												<li><a href="#">Pixelated Reverie</a></li>
+												<li><a href="#">Foxen Island</a></li>
+												<li><a href="#">FOQUES</a></li>
+												<li><a href="#">Invision</a></li>
+											</ul>
+										</li>
+										<!--<li><a href="#">Etiam Dolore</a></li>
+										<li><a href="#">Adipiscing</a></li>
+										<li>
+											<span class="opener">Another Submenu</span>
+											<ul>
+												<li><a href="#">Lorem Dolor</a></li>
+												<li><a href="#">Ipsum Adipiscing</a></li>
+												<li><a href="#">Tempus Magna</a></li>
+												<li><a href="#">Feugiat Veroeros</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Maximus Erat</a></li>
+										<li><a href="#">Sapien Mauris</a></li>
+										<li><a href="#">Amet Lacinia</a></li>-->
+									</ul>
+								</nav>
+
+							<!-- Section
+								<section>
+									<header class="major">
+										<h2>Blog Posts</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Pixelated Reverie - A Technical Artist's Blog</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section> -->
+
+							<!-- Section 
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+										<li class="icon solid fa-phone">(000) 000-0000</li>
+										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>-->
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">Matthew Wright. All rights reserved. </p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
