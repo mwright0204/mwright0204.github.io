@@ -51,16 +51,53 @@
 									<h2>The Crucible</h2>
 									<h4>Shaders and Effects</h4>
 									<p>
-										More Words
+The visuals of the crucible can be broken down into a few main elements: Pouring Bronze, Smoke Effects, the Glowing Crucible, and the Liquid Bronze.
+	
+									</p>
+									<p>
+The pouring bronze and smoke effects are both made through Unreal Engine's Niagara system, an advanced particle system created for UE 5. It enabled the ability to control flows of data into and out of the particle system, while remaining well optimised if used correctly. 
 
-										More Words
+									</p>
+									<p>
+For the pouring bronze specifically, it was the combination of a sprite renderer and a ribbon renderer, allowing globs of molten bronze to pour but keeping a connection of bronze between them to give them a realistic feeling. Custom input data, such as the rate of the pour being based on the angle, makes the bronze pour feel more realistic, as well as having a velocity derived from the pour direction. This, combined with accurate drag, gravity, and collision with the ground, allows for a fluid and heavy feeling, resulting in our desired outcome.
+									</p>
+									<p>
+When it comes to the smoke effects they were a combination of two sprite renders, one using a heat warping effect and the other using smoke sprites with a flipbook texture, together these have collision and inverted gravity to stop them going to walls and to rise at a consistent rate, the spawn rate is determined by a user parameter changes in the code base of the amount of bronze in the crucible.
+
+									</p>
+									<p>
+The glowing crucible has a custom material, determining a lit PBR shader's look. It has two states: one being emissive and orange, based on some video references of bronze pouring, and the other is stone. A dynamic material parameter allows a linear interpolation between the two states, so it can change gradually via code.
+									</p>
+									<p>
+Liquid Bronze was the hardest of all of these to create, having a shader that moves the liquid based on rotation, and also being able to lerp the amount based on melting bronze was a tall order, but with enough graft, I worked perfectly in the end. The basic principle for how it works is instead of working out where the liquid is, you work out where the liquid isn’t, using the opacity of the material, essentially cutting out the bit you don't want. 
+
+									</p>
+									<p>
+To find out the bit you don't want, I did a calculation to subtract the world position from the local object position to get the difference, and then added the bounds of the object. By multiplying the bounds by a normalized value, you can reduce and increase the liquid amount easily. By controlling this normalized value, we have created a close to realistic approach where the liquid amount decreases as the pour amount increases, all based on physical interaction.
+									</p>
+									<p>
+										
 										<br><br>
 									</p>
 									<h4>Programming and Math</h4>
 									<p>
-										More Words
+									The crucible programmatically has one element that stands out. The function to calculate the lowest edge when pouring is a simple concept, but in practice, it worked out to be more complex than initially thought.									</p>
+									<p>
+									To find the lowest edge of the crucible, first, we need to define where the edge of the crucible is, and to do that, we need to draw multiple points around the top of the crucible. We drew 8 points around the top; these points would update their Z coordinate in the world accordingly, and from then it is simply a question of checking all the points and figuring out which is the lowest in a loop.
+
 									</p>
-									<hr class="major" />
+									<p>
+									Due to the nature of how the code works, this edge point value stored is able to be used by a sphere trace collision, detecting what the molten bronze collides with. Robust code often does the opposite of tech debt, making life easier in the future.
+									</p>
+									<p>
+									The other significant programmatic element of the crucible is the maths in order to make the pour feel regarding the angle required for molten bronze to pour out. If we were pouring in two dimensions, this job couldn't have been easier. We take whichever relevant rotational axis and have a condition based on requiring an exact degree, and call it a day. However, VR programming proved to be more complex yet again.
+
+									</p>
+									<p>
+									To solve this, I did research, planned, and used trial and error, and eventually came to a solution. First, convert my rotation into a quaternion, to then translate it into an Euler representation in a 3D vector. This is now our rotation, but represented in a more useful format. I then get the up vector of the original rotator and subtract each 3D vector from each other. This gets the difference between our current rotation and the up vector. To get a usable angle, we then take the X and Y values from this as its own vector and get the vector length. This will give you specifically the angle of tilt regardless of the direction held in-game.
+
+									</p>
+<hr class="major" />
 
 									<h2>The Tongs</h2>
 									<p>
@@ -99,26 +136,6 @@ To approximate an angle from the data available and to work in different scenari
 To make our tongs function with the crucible in the game, we used some overlap collision spheres at the end of the tongs, along with measuring how closed they are to attach the crucible to them.
 										</p>
 									<hr class="major" />
-
-									<h2>Heading Goes Here</h2>
-									<p>
-										More Words
-										</p>
-									<p>
-										More Words
-										</p>
-									<p>
-										More Words
-									</p>
-									<hr class="major" />
-
-									<h2>Heading Goes Here</h2>
-									<p>
-										More Words
-									</p>
-									<p>
-										More Words
-										</p>
 								</section>
 
 						</div>
